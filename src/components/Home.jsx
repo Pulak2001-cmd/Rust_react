@@ -11,6 +11,7 @@ export default function Home({setCount}) {
   const [image, setImage] = useState(null);
   const submit = async()=> {
     const reader = new FileReader();
+    console.log(typeof(file))
     reader.onload = ()=> {
         setImage(reader.result);
     }
@@ -78,9 +79,9 @@ export default function Home({setCount}) {
       <div className="col-8 p-2 align-content-center align-items-center justify-content-center m-auto m-5">
         <div className="d-flex align-items-center justify-content-center flex-column">
           <h1>Infomaticae</h1>
-          <h1 className="text-primary">Rust Image Analysis</h1>
+          <h1 className="text-primary">HULL INSPECTION AND MAINTENANCE PROGRAM</h1>
           <p className="fs-5 fw-bold text-danger">
-            Your onestop solution for analyzing rust images
+            Your onestop solution for analyzing hull images
           </p>
         </div>
       </div>
@@ -88,7 +89,7 @@ export default function Home({setCount}) {
         <div className="container d-flex flex-column align-items-center justify-content-center mt-5">
           <div className="mb-0 m-0">
             <label htmlFor="formFile" id="dropcontainer" className="form-label drop-container">
-              <span className="drop-title">Drop files here</span>
+              <span className="drop-title">Drop a file here</span>
               or
               <input type="file" id='formFile' onChange={(e)=> setFile(e.target.files[0])} name="file" accept='image/x-png,image/gif,image/jpeg' required/>
 
