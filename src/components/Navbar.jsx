@@ -22,7 +22,7 @@ export default function Navbar({setCount}) {
         <div class=" m-auto ps-2">
             <div class="m-2 d-flex">
             <div class="d-flex flex-column align-items-center justify-content-center m-2">
-                <h4>RCEENetworks LLC.</h4>
+                <h4>HIMP</h4>
             </div>
             </div>
         </div>

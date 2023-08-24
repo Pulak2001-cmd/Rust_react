@@ -18,13 +18,13 @@ export default function Login({setCount}) {
     <div className="body">
     <div class="d-flex flex-column align-items-center justify-content-center box-1">
         <div class="d-flex flex-column">
-            <h2 class="text-warning">Retinal Image Analysis</h2>
+            <h2 class="text-warning">HULL INSPECTION AND MAINTENANCE PROGRAM (HIMP)</h2>
             <div class="d-flex flex-column align-items-center justify-content-center m-2">
                 <h3>Infomaticae Technologies</h3>
                 
             </div>
         </div>
-        <form enctype="multipart/form-data" className='d-flex flex-column'>
+        <form encType="multipart/form-data" className='d-flex flex-column'>
             <div class="form-floating mb-3">
                 <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} class="form-control input" id="floatingInput" placeholder="name@example.com" name="email" />
                 <label for="floatingInput">Email address</label>
