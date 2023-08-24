@@ -8,16 +8,22 @@ export default function Batch({setCount}) {
   const [files, setFiles] = useState(null);
   // const [details, setDetails] = useState({});
   const [result, setResult] = useState(false);
-  const [image, setImage] = useState(null);
-  const output = []
+  // const [image, setImage] = useState(null);
+  const [output,setOutput] = useState([])
 
   const submit = async()=> {
     console.log(files)
       for(let i=0; i<files.length; i++){
+        let image = null
         const reader = new FileReader();
+        reader.onload = ()=> {
+          image=reader.result
+        }
         let file = files[i]
         console.log(file)
         reader.readAsDataURL(file);
+        
+        
         let formData = new FormData();
         formData.append('file', file);
         const url = "https://rust-api-oxf0.onrender.com/v1/api/Rust"
@@ -27,24 +33,24 @@ export default function Batch({setCount}) {
           }
         })
         let data = await response.data;
-        console.log(data);
-        output.push(data)
+        
+        output.push({data,file,image})
       }
       console.log(output)
       setResult(true);
-  }
+    }
+
   const [zoomed, setZoomed] = useState(false);
   return (
     <div className="body1">
       <Navbar setCount={setCount} />
-      {console.log(result)}
       {result ? 
-
-      output.map((details)=> { return (
+      // {console.log(output)}
+      output.map(({data,file,image})=> { return (
         <div className="d-flex align-items-center justify-content-center m-4 flex-row">
           <div className="col-6 d-flex flex-column align-items-center justify-content-center">
             <h5 className="text-light">Uploaded Image</h5>
-            {/* <p>Filename: {file.name}</p> */}
+            <p>Filename: {file.name}</p>
             <img 
               src={image} 
               className={`bg-light p-1 mt-5 ${zoomed ? 'zoom-in':'zoom-out'}`}
@@ -59,7 +65,7 @@ export default function Batch({setCount}) {
             <h1 class="p-4" style={{backgroundColor: 'rgb(0, 0, 0, 0.5)', fontSize: '70px', borderRadius: '15px', color: 'white'}}>Result</h1>
             <h4 className="text-light">Rust Analysis</h4>
             <p className="m-0 fw-bold fs-4">
-              Result : {details.result} | Percentage : {details.prediction*100}%
+              Result : {data.result} | Percentage : {data.prediction*100}%
             </p>
             <div class="d-flex flex-row">
                 <p class="m-0 marker">0</p>
@@ -70,7 +76,7 @@ export default function Batch({setCount}) {
                 <p class="m-0">100</p>
               </div>
               <div class="progress1">
-                <div class="bar7" style={{width: `${750-750*parseFloat(details.prediction)}px`}}></div>
+                <div class="bar7" style={{width: `${750-750*parseFloat(data.prediction)}px`}}></div>
               </div>
               <div class="d-flex flex-column justify-content-between">
                 <p class="m-2 fs-3">0 : None</p>

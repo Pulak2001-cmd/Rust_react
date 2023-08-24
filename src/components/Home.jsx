@@ -11,7 +11,6 @@ export default function Home({setCount}) {
   const [image, setImage] = useState(null);
   const submit = async()=> {
     const reader = new FileReader();
-    console.log(typeof(file))
     reader.onload = ()=> {
         setImage(reader.result);
     }
