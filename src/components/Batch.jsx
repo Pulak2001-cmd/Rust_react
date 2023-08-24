@@ -10,8 +10,10 @@ export default function Batch({setCount}) {
   const [result, setResult] = useState(false);
   // const [image, setImage] = useState(null);
   const [output,setOutput] = useState([])
+  const [corrosion, setCorrosion] = useState(0)
 
   const submit = async()=> {
+    let count = 0;
     console.log(files)
       for(let i=0; i<files.length; i++){
         let image = null
@@ -33,19 +35,34 @@ export default function Batch({setCount}) {
           }
         })
         let data = await response.data;
-        
+        if(data.prediction<0.5){
+          count++;
+        }
         output.push({data,file,image})
       }
       console.log(output)
+      console.log(count)
       setResult(true);
+      setCorrosion(count*100)
     }
 
   const [zoomed, setZoomed] = useState(false);
   return (
     <div className="body1">
       <Navbar setCount={setCount} />
+
+      {result ? <div>
+        Conclusion:
+        <p className="m-0 fw-bold fs-4">
+          {(corrosion/output.length)}% of your images shown corrosion
+        </p>
+      </div>:
+      <div></div>
+      }
+      
       {result ? 
       // {console.log(output)}
+      
       output.map(({data,file,image})=> { return (
         <div className="d-flex align-items-center justify-content-center m-4 flex-row">
           <div className="col-6 d-flex flex-column align-items-center justify-content-center">
@@ -65,7 +82,7 @@ export default function Batch({setCount}) {
             <h1 class="p-4" style={{backgroundColor: 'rgb(0, 0, 0, 0.5)', fontSize: '70px', borderRadius: '15px', color: 'white'}}>Result</h1>
             <h4 className="text-light">Rust Analysis</h4>
             <p className="m-0 fw-bold fs-4">
-              Result : {data.result} | Percentage : {data.prediction*100}%
+              Result : {data.result} | Percentage : {(1-data.prediction)*100}%
             </p>
             <div class="d-flex flex-row">
                 <p class="m-0 marker">0</p>
@@ -76,7 +93,7 @@ export default function Batch({setCount}) {
                 <p class="m-0">100</p>
               </div>
               <div class="progress1">
-                <div class="bar7" style={{width: `${750-750*parseFloat(data.prediction)}px`}}></div>
+                <div class="bar7" style={{width: `${750-750*parseFloat(1-data.prediction)}px`}}></div>
               </div>
               <div class="d-flex flex-column justify-content-between">
                 <p class="m-2 fs-3">0 : None</p>
