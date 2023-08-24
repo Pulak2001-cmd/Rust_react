@@ -51,7 +51,7 @@ export default function Home({setCount}) {
             <h1 class="p-4" style={{backgroundColor: 'rgb(0, 0, 0, 0.5)', fontSize: '70px', borderRadius: '15px', color: 'white'}}>Result</h1>
             <h4 className="text-light">Rust Analysis</h4>
             <p className="m-0 fw-bold fs-4">
-              Result : {details.result} | Percentage : {details.prediction*100}%
+              Result : {details.result} | Percentage : {(1-details.prediction)*100}%
             </p>
             <div class="d-flex flex-row">
                 <p class="m-0 marker">0</p>
@@ -62,7 +62,7 @@ export default function Home({setCount}) {
                 <p class="m-0">100</p>
               </div>
               <div class="progress1">
-                <div class="bar7" style={{width: `${750-750*parseFloat(details.prediction)}px`}}></div>
+                <div class="bar7" style={{width: `${750-750*parseFloat(1-details.prediction)}px`}}></div>
               </div>
               <div class="d-flex flex-column justify-content-between">
                 <p class="m-2 fs-3">0 : None</p>
