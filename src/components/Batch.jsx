@@ -59,7 +59,10 @@ export default function Batch({setCount}) {
       </div>:
       <div></div>
       }
-      
+      <div className="d-flex flex-column align-items-center justify-content-center">
+        <h1 class="p-4" style={{backgroundColor: 'rgb(0, 0, 0, 0.5)', border: '1px solid #FFF', fontSize: '70px', borderRadius: '15px', color: 'white'}}>Result</h1>
+        <h4 className="text-light">Rust Analysis</h4>
+      </div>
       {result ? 
       // {console.log(output)}
       
@@ -79,8 +82,6 @@ export default function Batch({setCount}) {
             />
           </div>
           <div className="col-6 d-flex flex-column align-items-center justify-content-center">
-            <h1 class="p-4" style={{backgroundColor: 'rgb(0, 0, 0, 0.5)', fontSize: '70px', borderRadius: '15px', color: 'white'}}>Result</h1>
-            <h4 className="text-light">Rust Analysis</h4>
             <p className="m-0 fw-bold fs-4">
               Result : {data.result} | Percentage : {(1-data.prediction)*100}%
             </p>
