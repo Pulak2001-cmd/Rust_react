@@ -51,10 +51,10 @@ export default function Batch({setCount}) {
     <div className="body1">
       <Navbar setCount={setCount} />
 
-      {result ? <div>
+      {result ? <div className='ms-5'>
         Conclusion:
         <p className="m-0 fw-bold fs-4">
-          {(corrosion/output.length)}% of your images shown corrosion
+          {(corrosion/output.length).toFixed(2)}% of your images shown corrosion
         </p>
       </div>:
       <div></div>
