@@ -58,30 +58,37 @@ export default function Batch({setCount}) {
   const submit = async()=> {
     let count = 0;
     console.log(files)
-      for(let i=0; i<files.length; i++){
-        let image = null
-        const reader = new FileReader();
-        reader.onload = ()=> {
-          image=reader.result
-        }
-        let file = files[i]
-        console.log(file)
-        reader.readAsDataURL(file);
+    for(let i=0; i<files.length; i++){
+      var image = null
+      const reader = new FileReader();
+      reader.onload = ()=> {
+        console.log(reader.result, 'hi');
+        image = reader.result
+      }
+      let file = files[i]
+      console.log(file)
+      reader.readAsDataURL(file);
         
         
         let formData = new FormData();
         formData.append('file', file);
-        const url = "http://127.0.0.1:5000/v1/api/Rust"
-        // const url = "https://rust-api-oxf0.onrender.com/v1/api/Rust"
-        let response = await axios.post(url, formData, {
+        let jsonData = {
+          filename: file.name
+        }
+        // const url = "http://127.0.0.1:5000/v1/api/rust_"
+        const url = "https://rust-api-oxf0.onrender.com/v1/api/rust_"
+        let response = await axios.post(url, jsonData, {
           headers: {
-            'Content-Type': 'multipart/form-data'
+            'Content-Type': 'application/json'
           }
         })
         let data = await response.data;
         if(data.prediction>3){
           count++;
         }
+        console.log(data.prediction);
+        console.log(obj[data.prediction])
+        console.log("img", image);
         output.push({data,file,image})
       }
       console.log(output)
@@ -118,7 +125,7 @@ export default function Batch({setCount}) {
             <p>Filename: {file.name}</p>
             <img 
               src={image} 
-              className={`bg-light p-1 mt-5 ${zoomed === image ? 'zoom-in':'zoom-out'}`}
+              className={`bg-light p-1 mt-5`}
               height={400}
               onClick={()=> {
                 if(zoomed === image){
@@ -133,7 +140,7 @@ export default function Batch({setCount}) {
             />
           </div>
           <div className="col-6 d-flex flex-column justify-content-center">
-            <p className="m-0 fw-bold fs-4 p-2" style={{"color": "#FFF", border: `1px solid ${obj[data.prediction].color_code}`, backgroundColor: '#ccc', borderRadius: 6}}>
+            <p className="m-0 fw-bold fs-4 p-2" style={{"color": "#FFF", border: `1px solid ${obj[data.prediction].color_code}`, backgroundColor: 'rgb(0,0,0,0.6)', borderRadius: 6}}>
               {/* Result : {data.result} | Percentage : {(1-data.prediction)*100}% */}
               <b>Grading Point : <span style={{color: obj[data.prediction].color_code}}> {data.prediction} </span> </b> <br/>
               Coating condition : <span style={{color: obj[data.prediction].color_code}}>{obj[data.prediction].coating_condition}</span><br/>

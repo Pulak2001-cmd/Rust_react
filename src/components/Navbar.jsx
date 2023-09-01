@@ -10,7 +10,7 @@ export default function Navbar({setCount}) {
     if(location.pathname === '/'){
         setHeading('home');
     } else {
-        setHeading('batch')
+        setHeading('patient')
     }
   }, [])
   const logout = ()=> {
