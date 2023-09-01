@@ -13,19 +13,19 @@ export default function Batch({setCount}) {
   const [corrosion, setCorrosion] = useState(0)
   const obj = {
     0: {
-      "color_code": "green",
+      "color_code": "#66FF99",
       "risk_level": "Very Low",
       "condition_comment": "Excellent coating with negligible indication of coating failure",
       "coating_condition": "Good"
     },
     1: {
-      "color_code": "green",
+      "color_code": "#66FF99",
       "risk_level": "Low",
       "condition_comment": "Minor spot rusting",
       "coating_condition": "Good"
     },
     2: {
-      "color_code": "green",
+      "color_code": "#66FF99",
       "risk_level": "Low Medium",
       "condition_comment": "Spot rusting without visible coating, Failure is less than 3% of the area under consideration, Rusting is less than 20% of ages or welled lines",
       "coating_condition": "Good"
@@ -132,10 +132,13 @@ export default function Batch({setCount}) {
 
             />
           </div>
-          <div className="col-6 d-flex flex-column align-items-center justify-content-center">
-            <p className="m-0 fw-bold fs-4">
+          <div className="col-6 d-flex flex-column justify-content-center">
+            <p className="m-0 fw-bold fs-4" style={{"color":obj[data.prediction].color_code}}>
               {/* Result : {data.result} | Percentage : {(1-data.prediction)*100}% */}
-              Result : {data.prediction}
+              <b>Grading Point : {data.prediction}</b><br/>
+              Coating condition : {obj[data.prediction].coating_condition}<br/>
+              Risk level  : {obj[data.prediction].risk_level}<br/>
+              Condition comment : {obj[data.prediction].condition_comment}<br/>
             </p>
             {/* <div class="d-flex flex-row">
                 <p class="m-0 marker">0</p>
