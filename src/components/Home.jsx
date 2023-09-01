@@ -18,7 +18,7 @@ export default function Home({setCount}) {
     const formData = new FormData();
     formData.append('file', file);
     // const url = "http://192.168.0.103:5000/v1/api/Rust"
-    const url = "http://127.0.0.1:5000/v1/api/Rust"
+    const url = "https://rust-api-oxf0.onrender.com/v1/api/Rust"
     
     const response = await axios.post(url, formData, {
       headers: {
