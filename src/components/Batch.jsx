@@ -133,7 +133,7 @@ export default function Batch({setCount}) {
             />
           </div>
           <div className="col-6 d-flex flex-column justify-content-center">
-            <p className="m-0 fw-bold fs-4" style={{"color": "#FFF"}}>
+            <p className="m-0 fw-bold fs-4 p-2" style={{"color": "#FFF", border: `1px solid ${obj[data.prediction].color_code}`, backgroundColor: '#ccc', borderRadius: 6}}>
               {/* Result : {data.result} | Percentage : {(1-data.prediction)*100}% */}
               <b>Grading Point : <span style={{color: obj[data.prediction].color_code}}> {data.prediction} </span> </b> <br/>
               Coating condition : <span style={{color: obj[data.prediction].color_code}}>{obj[data.prediction].coating_condition}</span><br/>
