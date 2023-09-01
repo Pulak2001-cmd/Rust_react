@@ -17,7 +17,9 @@ export default function Home({setCount}) {
     reader.readAsDataURL(file);
     const formData = new FormData();
     formData.append('file', file);
-    const url = "https://rust-api-oxf0.onrender.com/v1/api/Rust"
+    // const url = "http://192.168.0.103:5000/v1/api/Rust"
+    const url = "http://127.0.0.1:5000/v1/api/Rust"
+    
     const response = await axios.post(url, formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
@@ -51,9 +53,10 @@ export default function Home({setCount}) {
             <h1 class="p-4" style={{backgroundColor: 'rgb(0, 0, 0, 0.5)', fontSize: '70px', borderRadius: '15px', color: 'white'}}>Result</h1>
             <h4 className="text-light">Rust Analysis</h4>
             <p className="m-0 fw-bold fs-4">
-              Result : {details.result} | Percentage : {(1-details.prediction)*100}%
+              {/* Result : {details.result} | Percentage : {(1-details.prediction)*100}% */}
+              Grading Point : {details.prediction}
             </p>
-            <div class="d-flex flex-row">
+            {/* <div class="d-flex flex-row">
                 <p class="m-0 marker">0</p>
                 <p class="m-0 marker">20</p>
                 <p class="m-0 marker">40</p>
@@ -70,7 +73,7 @@ export default function Home({setCount}) {
                 <p class="m-2 fs-3">40 : Moderate</p>
                 <p class="m-2 fs-3">60 : Severe</p>
                 <p class="m-2 fs-3">80 : Proliferative</p>
-              </div>
+              </div> */}
           </div>
         </div>
       :
