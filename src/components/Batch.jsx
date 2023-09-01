@@ -90,7 +90,7 @@ export default function Batch({setCount}) {
       setCorrosion(count*100)
     }
 
-  const [zoomed, setZoomed] = useState(false);
+  const [zoomed, setZoomed] = useState(null);
   return (
     <div className="body1">
       <Navbar setCount={setCount} />
@@ -118,9 +118,15 @@ export default function Batch({setCount}) {
             <p>Filename: {file.name}</p>
             <img 
               src={image} 
-              className={`bg-light p-1 mt-5 ${zoomed ? 'zoom-in':'zoom-out'}`}
+              className={`bg-light p-1 mt-5 ${zoomed === image ? 'zoom-in':'zoom-out'}`}
               height={400}
-              onClick={()=> setZoomed(!zoomed)}
+              onClick={()=> {
+                if(zoomed === image){
+                  setZoomed(null);
+                } else {
+                  setZoomed(image);
+                }
+              }}
               width={575}
               alt="image" 
 
