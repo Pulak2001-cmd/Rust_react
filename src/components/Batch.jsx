@@ -71,8 +71,8 @@ export default function Batch({setCount}) {
         
         let formData = new FormData();
         formData.append('file', file);
-        // const url = "http://127.0.0.1:5000/v1/api/Rust"
-        const url = "https://rust-api-oxf0.onrender.com/v1/api/Rust"
+        const url = "http://127.0.0.1:5000/v1/api/Rust"
+        // const url = "https://rust-api-oxf0.onrender.com/v1/api/Rust"
         let response = await axios.post(url, formData, {
           headers: {
             'Content-Type': 'multipart/form-data'
@@ -133,12 +133,12 @@ export default function Batch({setCount}) {
             />
           </div>
           <div className="col-6 d-flex flex-column justify-content-center">
-            <p className="m-0 fw-bold fs-4" style={{"color":obj[data.prediction].color_code}}>
+            <p className="m-0 fw-bold fs-4" style={{"color": "#FFF"}}>
               {/* Result : {data.result} | Percentage : {(1-data.prediction)*100}% */}
-              <b>Grading Point : {data.prediction}</b><br/>
-              Coating condition : {obj[data.prediction].coating_condition}<br/>
-              Risk level  : {obj[data.prediction].risk_level}<br/>
-              Condition comment : {obj[data.prediction].condition_comment}<br/>
+              <b>Grading Point : <span style={{color: obj[data.prediction].color_code}}> {data.prediction} </span> </b> <br/>
+              Coating condition : <span style={{color: obj[data.prediction].color_code}}>{obj[data.prediction].coating_condition}</span><br/>
+              Risk level  : <span style={{color: obj[data.prediction].color_code}}>{obj[data.prediction].risk_level}</span><br/>
+              Condition comment : <span style={{color: obj[data.prediction].color_code}}>{obj[data.prediction].condition_comment}</span><br/>
             </p>
             {/* <div class="d-flex flex-row">
                 <p class="m-0 marker">0</p>
