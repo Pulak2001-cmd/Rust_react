@@ -11,7 +11,50 @@ export default function Batch({setCount}) {
   // const [image, setImage] = useState(null);
   const [output,setOutput] = useState([])
   const [corrosion, setCorrosion] = useState(0)
-
+  const obj = {
+    0: {
+      "color_code": "green",
+      "risk_level": "Very Low",
+      "condition_comment": "Excellent coating with negligible indication of coating failure",
+      "coating_condition": "Good"
+    },
+    1: {
+      "color_code": "green",
+      "risk_level": "Low",
+      "condition_comment": "Minor spot rusting",
+      "coating_condition": "Good"
+    },
+    2: {
+      "color_code": "green",
+      "risk_level": "Low Medium",
+      "condition_comment": "Spot rusting without visible coating, Failure is less than 3% of the area under consideration, Rusting is less than 20% of ages or welled lines",
+      "coating_condition": "Good"
+    },
+    3: {
+      "color_code": "yellow",
+      "risk_level": "Medium",
+      "condition_comment": "Breakdown of coating or rust penetration is greater than 3% but less than 10% of the area, Hard Rust Scale is less than 5% of the area, Rusting in the area is greater than 20% but less than 35% of ages or welled lines",
+      "coating_condition": "Fair"
+    },
+    4: {
+      "color_code": "yellow",
+      "risk_level": "Medium High",
+      "condition_comment": "Breakdown of coating or rust penetration is greater than 10% but less than 20% of the area, Hard Rust Scale is greater than 5% of the area but less than 10% of the area, Rusting in the area is greater than 35% but less than 50% of ages or welled lines",
+      "coating_condition": "Fair"
+    },
+    5: {
+      "color_code": "Red",
+      "risk_level": "High",
+      "condition_comment": "Breakdown of coating or rust penetration is greater than 20% but less than 30% of the area, Hard Rust Scale is greater than 10% of the area but less than 20% of the area, Rusting in the area is greater than 50% but less than 75% of ages or welled lines",
+      "coating_condition": "Fair"
+    },
+    6: {
+      "color_code": "Red",
+      "risk_level": "Very High",
+      "condition_comment": "Breakdown of coating or rust penetration is greater than 30%, Hard Rust Scale is greater than 20% of the area, Rusting in the area is greater than 75% of ages or welled lines",
+      "coating_condition": "Fair"
+    },
+  }
   const submit = async()=> {
     let count = 0;
     console.log(files)
