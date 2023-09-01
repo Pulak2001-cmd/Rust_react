@@ -28,7 +28,7 @@ export default function Batch({setCount}) {
         
         let formData = new FormData();
         formData.append('file', file);
-        // const url = "http://192.168.0.103:5000/v1/api/Rust"
+        // const url = "http://127.0.0.1:5000/v1/api/Rust"
         const url = "https://rust-api-oxf0.onrender.com/v1/api/Rust"
         let response = await axios.post(url, formData, {
           headers: {
@@ -36,7 +36,7 @@ export default function Batch({setCount}) {
           }
         })
         let data = await response.data;
-        if(data.prediction<0.5){
+        if(data.prediction>3){
           count++;
         }
         output.push({data,file,image})
@@ -57,13 +57,14 @@ export default function Batch({setCount}) {
         <p className="m-0 fw-bold fs-4">
           {(corrosion/output.length).toFixed(2)}% of your images shown corrosion
         </p>
-      </div>:
-      <div></div>
-      }
-      <div className="d-flex flex-column align-items-center justify-content-center">
+        <div className="d-flex flex-column align-items-center justify-content-center">
         <h1 class="p-4" style={{backgroundColor: 'rgb(0, 0, 0, 0.5)', border: '1px solid #FFF', fontSize: '70px', borderRadius: '15px', color: 'white'}}>Result</h1>
         <h4 className="text-light">Rust Analysis</h4>
       </div>
+      </div>:
+      <div></div>
+      }
+      
       {result ? 
       // {console.log(output)}
       
@@ -112,8 +113,8 @@ export default function Batch({setCount}) {
     <div className='d-flex flex-row'>
       <div className="col-8 p-2 align-content-center align-items-center justify-content-center m-auto m-5">
         <div className="d-flex align-items-center justify-content-center flex-column">
-          <h1>Infomaticae</h1>
-          <h1 className="text-primary">HULL INSPECTION AND MAINTENANCE PROGRAM</h1>
+        <h3>Infomaticae Technologies</h3>
+          <h1 className="text-primary">Rust Analysis</h1>
           <p className="fs-5 fw-bold text-danger">
             Your onestop solution for analyzing hull images
           </p>
