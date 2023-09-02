@@ -9,6 +9,50 @@ export default function Home({setCount}) {
   const [details, setDetails] = useState({});
   const [result, setResult] = useState(false);
   const [image, setImage] = useState(null);
+  const obj = {
+    0: {
+      "color_code": "#66FF99",
+      "risk_level": "Very Low",
+      "condition_comment": "Excellent coating with negligible indication of coating failure",
+      "coating_condition": "Good"
+    },
+    1: {
+      "color_code": "#66FF99",
+      "risk_level": "Low",
+      "condition_comment": "Minor spot rusting",
+      "coating_condition": "Good"
+    },
+    2: {
+      "color_code": "#66FF99",
+      "risk_level": "Low Medium",
+      "condition_comment": "Spot rusting without visible coating, Failure is less than 3% of the area under consideration, Rusting is less than 20% of ages or welled lines",
+      "coating_condition": "Good"
+    },
+    3: {
+      "color_code": "yellow",
+      "risk_level": "Medium",
+      "condition_comment": "Breakdown of coating or rust penetration is greater than 3% but less than 10% of the area, Hard Rust Scale is less than 5% of the area, Rusting in the area is greater than 20% but less than 35% of ages or welled lines",
+      "coating_condition": "Fair"
+    },
+    4: {
+      "color_code": "yellow",
+      "risk_level": "Medium High",
+      "condition_comment": "Breakdown of coating or rust penetration is greater than 10% but less than 20% of the area, Hard Rust Scale is greater than 5% of the area but less than 10% of the area, Rusting in the area is greater than 35% but less than 50% of ages or welled lines",
+      "coating_condition": "Fair"
+    },
+    5: {
+      "color_code": "Red",
+      "risk_level": "High",
+      "condition_comment": "Breakdown of coating or rust penetration is greater than 20% but less than 30% of the area, Hard Rust Scale is greater than 10% of the area but less than 20% of the area, Rusting in the area is greater than 50% but less than 75% of ages or welled lines",
+      "coating_condition": "Fair"
+    },
+    6: {
+      "color_code": "Red",
+      "risk_level": "Very High",
+      "condition_comment": "Breakdown of coating or rust penetration is greater than 30%, Hard Rust Scale is greater than 20% of the area, Rusting in the area is greater than 75% of ages or welled lines",
+      "coating_condition": "Fair"
+    },
+  }
   const submit = async()=> {
     const reader = new FileReader();
     reader.onload = ()=> {
@@ -17,12 +61,15 @@ export default function Home({setCount}) {
     reader.readAsDataURL(file);
     const formData = new FormData();
     formData.append('file', file);
-    // const url = "http://127.0.0.1:5000/v1/api/Rust"
-    const url = "https://rust-api-oxf0.onrender.com/v1/api/Rust"
+    let jsonData = {
+      filename: file.name
+    }
+    // const url = "http://127.0.0.1:5000/v1/api/rust_"
+    const url = "https://rust-api-oxf0.onrender.com/v1/api/rust_"
     
-    const response = await axios.post(url, formData, {
+    let response = await axios.post(url, jsonData, {
       headers: {
-        'Content-Type': 'multipart/form-data'
+        'Content-Type': 'application/json'
       }
     })
     let data = await response.data;
@@ -52,10 +99,15 @@ export default function Home({setCount}) {
           <div className="col-6 d-flex flex-column align-items-center justify-content-center">
             <h1 class="p-4" style={{backgroundColor: 'rgb(0, 0, 0, 0.5)', fontSize: '70px', borderRadius: '15px', color: 'white'}}>Result</h1>
             <h4 className="text-light">Rust Analysis</h4>
-            <p className="m-0 fw-bold fs-4">
-              {/* Result : {details.result} | Percentage : {(1-details.prediction)*100}% */}
-              Grading Point : {details.prediction}
+            <div className="col-4 d-flex flex-column align-items-center justify-content-center m-auto m-4">
+            <p className="m-0 fw-bold fs-4 p-3" style={{"color": "#FFF", border: `1px solid ${obj[details.prediction].color_code}`, backgroundColor: 'rgb(0,0,0,0.6)', borderRadius: 6}}>
+              {/* Result : {data.result} | Percentage : {(1-data.prediction)*100}% */}
+              <b>Grading Point : <span style={{color: obj[details.prediction].color_code}}> {details.prediction} </span> </b> <br/>
+              Coating condition : <span style={{color: obj[details.prediction].color_code}}>{obj[details.prediction].coating_condition}</span><br/>
+              Risk level  : <span style={{color: obj[details.prediction].color_code}}>{obj[details.prediction].risk_level}</span><br/>
+              Condition comment : <span style={{color: obj[details.prediction].color_code}}>{obj[details.prediction].condition_comment}</span><br/>
             </p>
+          </div>
             {/* <div class="d-flex flex-row">
                 <p class="m-0 marker">0</p>
                 <p class="m-0 marker">20</p>
