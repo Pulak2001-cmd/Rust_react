@@ -6,9 +6,7 @@ import Navbar from './Navbar';
 
 export default function Batch({setCount}) {
   const [files, setFiles] = useState(null);
-  // const [details, setDetails] = useState({});
   const [result, setResult] = useState(false);
-  // const [image, setImage] = useState(null);
   const [output,setOutput] = useState([])
   const [corrosion, setCorrosion] = useState(0)
   const obj = {
@@ -46,13 +44,13 @@ export default function Batch({setCount}) {
       "color_code": "Red",
       "risk_level": "High",
       "condition_comment": "Breakdown of coating or rust penetration is greater than 20% but less than 30% of the area, Hard Rust Scale is greater than 10% of the area but less than 20% of the area, Rusting in the area is greater than 50% but less than 75% of ages or welled lines",
-      "coating_condition": "Fair"
+      "coating_condition": "Poor"
     },
     6: {
       "color_code": "Red",
       "risk_level": "Very High",
       "condition_comment": "Breakdown of coating or rust penetration is greater than 30%, Hard Rust Scale is greater than 20% of the area, Rusting in the area is greater than 75% of ages or welled lines",
-      "coating_condition": "Fair"
+      "coating_condition": "Poor"
     },
   }
   const [loading, setLoading] = useState(false);
@@ -64,7 +62,6 @@ export default function Batch({setCount}) {
       var image = null
       const reader = new FileReader();
       reader.onload = ()=> {
-        console.log(reader.result, 'hi');
         image = reader.result
       }
       let file = files[i]
@@ -118,7 +115,10 @@ export default function Batch({setCount}) {
         <p className="m-0 fw-bold fs-4">
           Conclusion : {(corrosion/output.length).toFixed(2)}% of your images shown corrosion
         </p>
-        <button className="btn btn-primary mt-3" type="submit" onClick={()=> setResult(false)}>
+        <button className="btn btn-primary mt-3" type="submit" onClick={()=> {
+            setResult(false);
+            setOutput([]);
+          }}>
             Analyze Again
           </button>
       </div>
@@ -154,7 +154,7 @@ export default function Batch({setCount}) {
           <div className="col-4 d-flex flex-column align-items-center justify-content-center m-auto m-4">
             <p className="m-0 fw-bold fs-4 p-3" style={{"color": "#FFF", border: `1px solid ${obj[data.prediction].color_code}`, backgroundColor: 'rgb(0,0,0,0.6)', borderRadius: 6}}>
               {/* Result : {data.result} | Percentage : {(1-data.prediction)*100}% */}
-              <b>Grading Point : <span style={{color: obj[data.prediction].color_code}}> {data.prediction} </span> </b> <br/>
+              <b>Grading Point (0-6) : <span style={{color: obj[data.prediction].color_code}}> {data.prediction} </span> </b> <br/>
               Coating condition : <span style={{color: obj[data.prediction].color_code}}>{obj[data.prediction].coating_condition}</span><br/>
               Risk level  : <span style={{color: obj[data.prediction].color_code}}>{obj[data.prediction].risk_level}</span><br/>
               Condition comment : <span style={{color: obj[data.prediction].color_code}}>{obj[data.prediction].condition_comment}</span><br/>
