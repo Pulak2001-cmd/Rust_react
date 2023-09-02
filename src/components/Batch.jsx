@@ -55,8 +55,10 @@ export default function Batch({setCount}) {
       "coating_condition": "Fair"
     },
   }
+  const [loading, setLoading] = useState(false);
   const submit = async()=> {
     let count = 0;
+    setLoading(true);
     console.log(files)
     for(let i=0; i<files.length; i++){
       var image = null
@@ -94,6 +96,7 @@ export default function Batch({setCount}) {
       console.log(output)
       console.log(count)
       setResult(true);
+      setLoading(false);
       setCorrosion(count*100)
     }
 
@@ -101,8 +104,14 @@ export default function Batch({setCount}) {
   return (
     <div className="body1">
       <Navbar setCount={setCount} />
-
-      {result ? <div className='ms-5'>
+      {loading &&
+      <div className="d-flex justify-content-center align-items-center" style={{minHeight: '80vh'}}>
+        <div class="spinner-border text-primary" role="status" style={{width: '5rem', height: '5rem'}}>
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+      }
+      {!loading && result ? <div className='ms-5'>
         <div className="d-flex flex-column align-items-center justify-content-center">
         <h1 class="p-4 mt-4" style={{backgroundColor: 'rgb(0, 0, 0, 0.5)', border: '1px solid #FFF', fontSize: '70px', borderRadius: '15px', color: 'white'}}>Result</h1>
         <h4 className="text-light">Rust Analysis</h4>
@@ -117,7 +126,7 @@ export default function Batch({setCount}) {
       <div></div>
       }
       
-      {result ? 
+      {!loading && result ? 
       // {console.log(output)}
       
       output.map(({data,file,image})=> { return (
@@ -154,7 +163,7 @@ export default function Batch({setCount}) {
         </div>)}
       )
       :
-    <div className='d-flex flex-row'>
+    !loading && <div className='d-flex flex-row'>
       <div className="col-8 p-2 align-content-center align-items-center justify-content-center m-auto m-5">
         <div className="d-flex align-items-center justify-content-center flex-column">
         <h3>Infomaticae Technologies</h3>
