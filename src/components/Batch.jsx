@@ -103,13 +103,15 @@ export default function Batch({setCount}) {
       <Navbar setCount={setCount} />
 
       {result ? <div className='ms-5'>
-        Conclusion:
-        <p className="m-0 fw-bold fs-4">
-          {(corrosion/output.length).toFixed(2)}% of your images shown corrosion
-        </p>
         <div className="d-flex flex-column align-items-center justify-content-center">
-        <h1 class="p-4" style={{backgroundColor: 'rgb(0, 0, 0, 0.5)', border: '1px solid #FFF', fontSize: '70px', borderRadius: '15px', color: 'white'}}>Result</h1>
+        <h1 class="p-4 mt-4" style={{backgroundColor: 'rgb(0, 0, 0, 0.5)', border: '1px solid #FFF', fontSize: '70px', borderRadius: '15px', color: 'white'}}>Result</h1>
         <h4 className="text-light">Rust Analysis</h4>
+        <p className="m-0 fw-bold fs-4">
+          Conclusion : {(corrosion/output.length).toFixed(2)}% of your images shown corrosion
+        </p>
+        <button className="btn btn-primary mt-3" type="submit" onClick={()=> setResult(false)}>
+            Analyze Again
+          </button>
       </div>
       </div>:
       <div></div>
@@ -119,13 +121,14 @@ export default function Batch({setCount}) {
       // {console.log(output)}
       
       output.map(({data,file,image})=> { return (
-        <div className="d-flex align-items-center justify-content-center m-4 flex-row">
-          <div className="col-6 d-flex flex-column align-items-center justify-content-center">
+        <div className="d-flex align-items-center justify-content-center flex-row" style={{borderBottom: '1px solid #FFFF', borderRadius: '8px'}}>
+          
+          <div className="col-6 d-flex flex-column align-items-center justify-content-center m-4">
             <h5 className="text-light">Uploaded Image</h5>
             <p>Filename: {file.name}</p>
             <img 
               src={image} 
-              className={`bg-light p-1 mt-5`}
+              className={`bg-light p-1 mt-2 mb-2`}
               height={400}
               onClick={()=> {
                 if(zoomed === image){
@@ -139,32 +142,14 @@ export default function Batch({setCount}) {
 
             />
           </div>
-          <div className="col-6 d-flex flex-column justify-content-center">
-            <p className="m-0 fw-bold fs-4 p-2" style={{"color": "#FFF", border: `1px solid ${obj[data.prediction].color_code}`, backgroundColor: 'rgb(0,0,0,0.6)', borderRadius: 6}}>
+          <div className="col-4 d-flex flex-column align-items-center justify-content-center m-auto m-4">
+            <p className="m-0 fw-bold fs-4 p-3" style={{"color": "#FFF", border: `1px solid ${obj[data.prediction].color_code}`, backgroundColor: 'rgb(0,0,0,0.6)', borderRadius: 6}}>
               {/* Result : {data.result} | Percentage : {(1-data.prediction)*100}% */}
               <b>Grading Point : <span style={{color: obj[data.prediction].color_code}}> {data.prediction} </span> </b> <br/>
               Coating condition : <span style={{color: obj[data.prediction].color_code}}>{obj[data.prediction].coating_condition}</span><br/>
               Risk level  : <span style={{color: obj[data.prediction].color_code}}>{obj[data.prediction].risk_level}</span><br/>
               Condition comment : <span style={{color: obj[data.prediction].color_code}}>{obj[data.prediction].condition_comment}</span><br/>
             </p>
-            {/* <div class="d-flex flex-row">
-                <p class="m-0 marker">0</p>
-                <p class="m-0 marker">20</p>
-                <p class="m-0 marker">40</p>
-                <p class="m-0 marker">60</p>
-                <p class="m-0 marker">80</p>
-                <p class="m-0">100</p>
-              </div>
-              <div class="progress1">
-                <div class="bar7" style={{width: `${750-750*parseFloat(1-data.prediction)}px`}}></div>
-              </div>
-              <div class="d-flex flex-column justify-content-between">
-                <p class="m-2 fs-3">0 : None</p>
-                <p class="m-2 fs-3">20 : Mild</p>
-                <p class="m-2 fs-3">40 : Moderate</p>
-                <p class="m-2 fs-3">60 : Severe</p>
-                <p class="m-2 fs-3">80 : Proliferative</p>
-              </div> */}
           </div>
         </div>)}
       )
