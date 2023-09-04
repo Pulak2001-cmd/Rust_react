@@ -187,6 +187,9 @@ export default function Batch({setCount}) {
             <p className="m-0 fw-bold fs-4 p-3" style={{"color": "#FFF", border: `1px solid ${obj[data.prediction].color_code}`, backgroundColor: 'rgb(0,0,0,0.6)', borderRadius: 6}}>
               {/* Result : {data.result} | Percentage : {(1-data.prediction)*100}% */}
               <b>Grading Point (0-6) : <span style={{color: obj[data.prediction].color_code}}> {data.prediction} </span> </b> <br/>
+              <div class="progress1">
+                <div class="bar7" style={{width: `${540-90*parseFloat(data.prediction)}px`}}></div>
+              </div>
               Coating condition : <span style={{color: obj[data.prediction].color_code}}>{obj[data.prediction].coating_condition}</span><br/>
               Risk level  : <span style={{color: obj[data.prediction].color_code}}>{obj[data.prediction].risk_level}</span><br/>
               Condition comment : <span style={{color: obj[data.prediction].color_code}}>{obj[data.prediction].condition_comment}</span><br/>
