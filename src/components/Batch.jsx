@@ -54,10 +54,16 @@ export default function Batch({setCount}) {
     },
   }
   const [loading, setLoading] = useState(false);
+  const [good, setGood] = useState(0);
+  const [fair, setFair] = useState(0);
+  const [poor, setPoor] = useState(0);
   const submit = async()=> {
     let count = 0;
     setLoading(true);
     console.log(files)
+    let good_ = 0;
+    let fair_ = 0;
+    let poor_ = 0;
     for(let i=0; i<files.length; i++){
       var image = null
       const reader = new FileReader();
@@ -85,11 +91,23 @@ export default function Batch({setCount}) {
         if(data.prediction>3){
           count++;
         }
+        if(data.prediction < 3){
+          good_++
+        }
+        if (data.prediction >= 3 && data.prediction <5){
+          fair_++
+        }
+        if(data.prediction >= 5){
+          poor_++
+        }
         console.log(data.prediction);
         console.log(obj[data.prediction])
         console.log("img", image);
         output.push({data,file,image})
       }
+      setGood(good_);
+      setFair(fair_);
+      setPoor(poor_);
       console.log(output)
       console.log(count)
       setResult(true);
@@ -115,6 +133,17 @@ export default function Batch({setCount}) {
         <p className="m-0 fw-bold fs-4">
           Conclusion : {(corrosion/output.length).toFixed(2)}% of your images shown corrosion
         </p>
+        <div className="d-flex flex-row justify-content-between">
+          <p className="m-3 fw-bold fs-5">
+            Good : {good}
+          </p>
+          <p className="m-3 fw-bold fs-5">
+            Fair : {fair}
+          </p>
+          <p className="m-3 fw-bold fs-5">
+            Poor : {poor}
+          </p>
+        </div>
         <button className="btn btn-primary mt-3" type="submit" onClick={()=> {
             setResult(false);
             setOutput([]);
