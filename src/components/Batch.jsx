@@ -66,6 +66,7 @@ export default function Batch({setCount}) {
     let poor_ = 0;
     for(let i=0; i<files.length; i++){
       var image = null
+      setLoading_num((i/files.length)*100);
       const reader = new FileReader();
       reader.onload = ()=> {
         image = reader.result
@@ -116,14 +117,16 @@ export default function Batch({setCount}) {
     }
 
   const [zoomed, setZoomed] = useState(null);
+  const [loading_num, setLoading_num] = useState(0);
   return (
     <div className="body1">
       <Navbar setCount={setCount} />
       {loading &&
-      <div className="d-flex justify-content-center align-items-center" style={{minHeight: '80vh'}}>
+      <div className="d-flex flex-column justify-content-center align-items-center" style={{minHeight: '80vh'}}>
         <div class="spinner-border text-primary" role="status" style={{width: '5rem', height: '5rem'}}>
           <span class="visually-hidden">Loading...</span>
         </div>
+        <p className='m-1 fw-bold fs-2 text-dark'>{loading_num.toFixed(0)}% Loading</p>
       </div>
       }
       {!loading && result ? <div className='ms-5'>
