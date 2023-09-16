@@ -133,18 +133,18 @@ export default function Batch({setCount}) {
         <div className="d-flex flex-column align-items-center justify-content-center">
         <h1 class="p-4 mt-4" style={{backgroundColor: 'rgb(0, 0, 0, 0.5)', border: '1px solid #FFF', fontSize: '70px', borderRadius: '15px', color: 'white'}}>Result</h1>
         <h4 className="text-light">Rust Analysis</h4>
-        <p className="m-0 fw-bold fs-4">
-          Conclusion : {(corrosion/output.length).toFixed(2)}% of your images shown corrosion
+        <p className="m-0 fw-bold fs-4" style={{borderBottom: '2px solid #FFFF', padding: 8, borderRadius: 7}}>
+          <strong>Conclusion</strong> : {(corrosion/output.length).toFixed(2)}% of your images shown corrosion
         </p>
-        <div className="d-flex flex-row justify-content-between">
-          <p className="m-3 fw-bold fs-5">
-            Good : {good}
+        <div className="d-flex flex-row justify-content-between" style={{borderBottom: '1px solid #CCC', borderRadius: 6}}>
+          <p className="m-3 fs-5">
+            <strong>Good :</strong> {good}
           </p>
-          <p className="m-3 fw-bold fs-5">
-            Fair : {fair}
+          <p className="m-3 fs-5">
+            <strong>Fair :</strong> {fair}
           </p>
-          <p className="m-3 fw-bold fs-5">
-            Poor : {poor}
+          <p className="m-3 fs-5">
+            <strong>Poor :</strong> {poor}
           </p>
         </div>
         <button className="btn btn-primary mt-3" type="submit" onClick={()=> {
